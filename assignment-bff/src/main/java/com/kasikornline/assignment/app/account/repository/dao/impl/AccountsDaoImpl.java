@@ -38,6 +38,7 @@ public class AccountsDaoImpl implements AccountsDao {
 
     List<Account> getAccounts(String userId) {
         List<AccountsEntity> entities = accountsRepository.findByUserId(userId)
+                .filter(list -> !list.isEmpty())
                 .orElseThrow(() -> {
                     log.error("Account not found for user: {}", userId);
                     return new AccountNotFoundException("Account not found, please check again.");

@@ -1,12 +1,10 @@
 package com.kasikornline.assignment.app.common.config;
 
-import com.kasikornline.assignment.app.common.security.BasicAuthenticationProvider;
 import com.kasikornline.assignment.app.common.security.BearerTokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-    final BasicAuthenticationProvider basicAuthProvider;
     final BearerTokenAuthenticationFilter bearerTokenRequestFilter;
 
     @Bean
@@ -34,7 +31,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/api/**").authenticated()
-                                .requestMatchers("/login").permitAll()
+                                .anyRequest().permitAll()
                 );
 
         http.addFilterBefore(bearerTokenRequestFilter, UsernamePasswordAuthenticationFilter.class);

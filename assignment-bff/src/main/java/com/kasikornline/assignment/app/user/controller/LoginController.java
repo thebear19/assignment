@@ -1,6 +1,5 @@
 package com.kasikornline.assignment.app.user.controller;
 
-import com.kasikornline.assignment.app.common.model.CustomUser;
 import com.kasikornline.assignment.app.common.model.CustomUserNamePasswordAuthenticationToken;
 import com.kasikornline.assignment.app.user.api.LoginApi;
 import com.kasikornline.assignment.app.user.model.dto.UserRequest;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +27,7 @@ public class LoginController implements LoginApi {
     @Override
     public UserResponse login(@Valid @RequestBody UserRequest req) {
         log.info("START : logging in username: {}", req.getName());
-        CustomUserNamePasswordAuthenticationToken authentication = (CustomUserNamePasswordAuthenticationToken) authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(req.getName(), req.getPassword())
-        );
+        CustomUserNamePasswordAuthenticationToken authentication = getAuthenticationToken(req);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         if (authentication.isAuthenticated()) {
@@ -45,5 +41,19 @@ public class LoginController implements LoginApi {
         } else {
             throw new BadCredentialsException("Invalid credentials");
         }
+    }
+
+    CustomUserNamePasswordAuthenticationToken getAuthenticationToken(UserRequest req) {
+        CustomUserNamePasswordAuthenticationToken authentication;
+
+        try {
+            authentication = (CustomUserNamePasswordAuthenticationToken) authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(req.getName(), req.getPassword())
+            );
+        } catch (Exception e) {
+            throw new BadCredentialsException("Invalid credentials");
+        }
+
+        return authentication;
     }
 }

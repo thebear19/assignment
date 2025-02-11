@@ -1,6 +1,3 @@
 spring:
-  profiles:
-    active: local
-#    include: swagger
   jpa:
     show-sql: true

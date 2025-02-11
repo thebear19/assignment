@@ -5,6 +5,7 @@ import com.kasikornline.assignment.app.exception.AccountNotFoundException;
 import com.kasikornline.assignment.app.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -22,5 +23,15 @@ public class BaseExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(errResp, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> exceptionHandler(BadCredentialsException e) {
+        ErrorResponse errResp = ErrorResponse.builder()
+                .message(e.getMessage())
+                .httpCode(HttpStatus.UNAUTHORIZED.value())
+                .build();
+
+        return new ResponseEntity<>(errResp, HttpStatus.UNAUTHORIZED);
     }
 }
