@@ -1,0 +1,35 @@
+server:
+  servlet:
+    context-path: /
+    session:
+      cookie:
+        secure: true
+
+spring:
+  application:
+    name: assignment-bff
+  profiles:
+    active: dev
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://mysql:3306/testdb
+    username: welcomeuser
+    password: Welcome@01
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: false
+      maximum-pool-size: 3
+      minimum-idle: 2
+      idle-timeout: 10000
+      connection-timeout: 30000
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    database: MYSQL
+    show-sql: false
+  main:
+    allow-bean-definition-overriding: true
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs

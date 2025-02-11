@@ -1,0 +1,60 @@
+services:
+  assignment_fe:
+    build:
+      context: ./assignment-fe
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+    networks:
+      - assignment-network
+    volumes:
+      - ./assignment-fe:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  assignment_bff:
+    build:
+      context: ./assignment-bff
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    networks:
+      - assignment-network
+    volumes:
+      - ./assignment-bff:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: welcomeuser
+      MYSQL_PASSWORD: Welcome@01
+      TZ: UTC+7
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    networks:
+      - assignment-network
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "test", "-f", "/var/lib/mysql/import_done"]
+      interval: 10s
+      retries: 5
+      start_period: 1800s
+      timeout: 1800s
+
+volumes:
+  mysql_data:
+networks:
+  assignment-network:
+    name: assignment-network
