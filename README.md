@@ -1,16 +1,27 @@
 # Kasikorn Line - Assignment test
 ## Setup Guide
 1. Download Git LFS from [here](https://git-lfs.com/) **(if cannot use Git LFS go to step 2.)**
-1.1 Open CMD or PowerShell after installed `.exe`
-1.2 Run `git lfs install`
-1.3 Run `git clone https://github.com/thebear19/assignment.git`
-1.4 Go to `assignment/db` folder
-1.5 Extract `data.zip` in the `assignment/db`
-1.6 Go to **step 3.**
+
+    1.1 Open CMD or PowerShell after installed `.exe`
+   
+    1.2 Run `git lfs install`
+   
+    1.3 Run `git clone https://github.com/thebear19/assignment.git`
+   
+    1.4 Go to `assignment/db` folder
+   
+    1.5 Extract `data.zip` in the `assignment/db`
+   
+    1.6 Go to **step 3.**
+   
 2. Install database manually by download `mock.zip` in this [google drive](https://drive.google.com/drive/folders/1m0nXqhuZ_JdYzJBLCT-5DtbHZ4YU7HMQ)
-2.1 Extract file in `assignment/db`
-2.2 Rename all SQL file by adding number prefix with under scroll `(ex. filename.sql -> 01_filename.sql)`
-2.2.1 Make sure `import_ready.sh` script is the last file in the folder
+
+    2.1 Extract file in `assignment/db`
+   
+    2.2 Rename all SQL file by adding number prefix with under scroll `(ex. filename.sql -> 01_filename.sql)`
+   
+    2.2.1 Make sure `import_ready.sh` script is the last file in the folder
+   
 3. Go back to root folder `/assignment`
 4. Open CMD or PowerShell here and run `docker compose up`
 5. Wait the installation around 15 min
@@ -89,4 +100,5 @@
 
 ## Back-end API document
 - http://localhost:8081/swagger-ui/index.html
+
 **Remark: Need to start the application first.**
