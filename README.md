@@ -1,6 +1,6 @@
 # Kasikorn Line - Assignment test
 ## Setup Guide
-1. clone project from `https://github.com/thebear19/assignment.git` and wait for a while.
+1. Clone project from `https://github.com/thebear19/assignment.git` and wait for a while.
 2. Go to `assignment/db` folder 
 3. Extract `data.zip` in the `assignment/db`
 4. Go back to root folder `/assignment`
