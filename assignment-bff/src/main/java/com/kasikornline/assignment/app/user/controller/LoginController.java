@@ -30,7 +30,7 @@ public class LoginController implements LoginApi {
         CustomUserNamePasswordAuthenticationToken authentication = getAuthenticationToken(req);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        if (authentication.isAuthenticated()) {
+        if (authentication != null && authentication.isAuthenticated()) {
             log.info("END : logging in username: {}", req.getName());
 
             return UserResponse.builder()
