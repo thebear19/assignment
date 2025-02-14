@@ -1,0 +1,1 @@
+run cmd: .\k6.exe run -d 30s -u 20 .\load_test_script.js
